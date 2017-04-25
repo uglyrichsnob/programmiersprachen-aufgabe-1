@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_RUNNER
 #include <cmath>
+#include "catch.hpp"
 #include <iostream>
 
 using namespace std;
@@ -8,102 +9,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-
-
-    //----------------------
-
-    cout << "A1_8: ggT\n";
-    int a,b;
-    cout << "Zahl 1: \n";
-    cin >> a;
-    cout << "Zahl 2: \n";
-    cin >> b;
-    
-    if (a == 0 || b == 0) {
-        cout << "Fehler\n";
-    }
-    
-    int gcd(int a, int b);
-    cout << gcd(a,b) << endl;
-
-    //----------------------
-
-    cout << "A1_9: Quersumme\n"; 
-    int c;
-    cout << "Zahl eingeben: \n";
-    cin >> c;
-
-    int quersumme(int c);
-    cout << quersumme(c) << endl;
-
-    //----------------------
-
-    cout << "A1_10: sumMultiples\n";
-    int limit = 1000;
-    int sumMultiples(int limit);
-    cout << sumMultiples(limit) << endl;
-
-     //----------------------
-
-    cout << "A1_11: fract\n";
-    float e;
-    cout << "Zahl eingeben: \n";
-    cin >> e;
-
-    float fract(float e);
-    cout << fract(e) << endl;
-
-    //----------------------
-
-    cout << "A1_12: cylinder\n";
-    int f;
-    int g;
-    cout << "Radius: \n";
-    cin >> f;
-    cout << "Hoehe: \n";
-    cin >> g;
-
-    float cylinder(float f, float g);
-    cout << cylinder(f,g) << endl;
-
-    //----------------------
-
-    cout << "A1_13: factorial\n";
-    int h;
-    cout << "Zahl eingeben: \n";
-    cin >> h;
-
-    int factorial(int h);
-    cout << factorial(h) << endl;
-
-    //----------------------
-
-    cout << "A1_14: binomial\n";
-    int n;
-    int k;
-    cout << "n: \n";
-    cin >> n;
-    cout << "k: \n";
-    cin >> k;
-
-    int binomial(int n, int k);
-    cout << binomial(n,k) << endl;
-
-    //----------------------
-
-    cout << "A1_15: is_Prime\n";
-    int i;
-    cout << "Zahl: \n";
-    cin >> i;
-
-    int is_prime(int i);
-    cout << is_prime(i) << endl;
-
-    //----------------------
-
-
-
-
+    return Catch::Session().run(argc, argv);
 
 }
 
@@ -124,14 +30,6 @@ int gcd(int a, int b) {
     return a;
 }
 
-/*
-TEST_CASE("describe_gcd", "[gcd]")
-{
-  REQUIRE(gcd(2,4) == 2);
-  REQUIRE(gcd(9,6) == 3); 
-  REQUIRE(gcd(3,7) == 1);
-}
-*/
 
 //1.9 Quersumme
 
@@ -145,14 +43,7 @@ int quersumme(int c) {
     return sum;
 }
 
-/*
-TEST_CASE("describe_quersumme", "[quersumme]")
-{
-  REQUIRE(quersumme(12) == 3);
-  REQUIRE(quersumme(21) == 3);
-  REQUIRE(quersumme(117659) == 29);
-}
-*/
+
 
 //1.10 sumMultiples
 
@@ -176,22 +67,15 @@ float fract(float e) {
 
 //1.12 Zylinder
 
-float cylinder(float f, float g)
-{
-  float volume = M_PI * f * g;
-  float area = (2 * M_PI * f * f) + (2 * volume);
+double volume (double radius, double height){   
+  double volume = M_PI*radius*radius*height;
+  return volume;  
+}
 
+ double area (double radius, double height){    
+  double area = 2*M_PI*radius*radius+2*M_PI*radius*height;
   return area;
-}
-
-/*
-TEST_CASE("describe_cylinder", "[cylinder]")
-{
-  REQUIRE(cylinder(1,1) == 12.5664);
-  REQUIRE(cylinder(4,3) == 175.929);
-  REQUIRE(cylinder(12,22) == 2563.54);
-}
-*/
+ }
 
 //1.13 factorial
 
@@ -203,14 +87,6 @@ int factorial(int h)
         return 1;
 }
 
-/*
-TEST_CASE("describe_factorial", "[factorial]")
-{
-  REQUIRE(factorial(1) == 1);
-  REQUIRE(factorial(3) == 6);
-  REQUIRE(factorial(5) == 120);
-}
-*/
 
 //1.14 binomial
 
@@ -221,15 +97,6 @@ int binomial(int n, int k)
 
   return  binomial(n-1, k-1) + binomial(n-1, k);
 }
-
-/*
-TEST_CASE("binomialkoeffizient", "[binomial]")
-{
-  REQUIRE(binomial(4,3) == 4);
-  REQUIRE(binomial(12,6) == 924);
-  REQUIRE(binomial(36,2) == 630);
-}
-*/
 
 
 //1.15 isPrime
@@ -253,12 +120,70 @@ int is_prime(int i)
   return fermat;
 }
 
-/*
+//1.16 MilesToKilometer
+
+double mileToKilometer(double miles)
+{
+  double kilometers = 1.609344 * miles;
+  return kilometers;
+}
+
+
+TEST_CASE("describe_gcd", "[gcd]")
+{
+  REQUIRE(gcd(2,4) == 2);
+  REQUIRE(gcd(9,6) == 3); 
+  REQUIRE(gcd(3,7) == 1);
+}
+
+TEST_CASE("describe_fract", "[fract]")
+{
+    REQUIRE(fract(5.234) == Approx(0.234));
+    REQUIRE(fract(0) == 0);
+}
+
+TEST_CASE("describe_quersumme", "[quersumme]")
+{
+  REQUIRE(quersumme(0) == 0);
+  REQUIRE(quersumme(21) == 3);
+  REQUIRE(quersumme(117659) == 29);
+}
+
+TEST_CASE ("describe_volume" , "[volume]" )
+{
+  REQUIRE ( volume (4,5) == Approx (251.3274122872) );
+}
+TEST_CASE ("describe_area" , "[area]" )
+{
+  REQUIRE ( area (4,5) == Approx (226.195) );
+}
+
+
+TEST_CASE("describe_factorial", "[factorial]")
+{
+  REQUIRE(factorial(1) == 1);
+  REQUIRE(factorial(3) == 6);
+  REQUIRE(factorial(5) == 120);
+}
+
+TEST_CASE("describe_binomial", "[binomial]")
+{
+  REQUIRE(binomial(4,3) == 4);
+  REQUIRE(binomial(12,6) == 924);
+  REQUIRE(binomial(36,2) == 630);
+}
+
+
 TEST_CASE("describe_is_prime", "[is_prime]")
 {
   REQUIRE(is_prime(2) == true);
   REQUIRE(is_prime(3) == true);
   REQUIRE(is_prime(4) == false);
 }
-*/
 
+TEST_CASE("describe_mileToKilometer", "[mileToKilometer]")
+{
+  REQUIRE(mileToKilometer(0) == 0);
+  REQUIRE(mileToKilometer(7654) == 12317.918976);
+  REQUIRE(mileToKilometer(1) == 1.609344);
+}
